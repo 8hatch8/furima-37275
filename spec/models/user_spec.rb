@@ -52,13 +52,19 @@ RSpec.describe User, type: :model do
         @user.password = '123456'
         @user.password_confirmation = @user.password
         @user.valid?
-        expect(@user.errors.full_messages).to include 'Password 英字と数字の両方を含めて設定してください'
+        expect(@user.errors.full_messages).to include 'Password is invalid'
       end
       it 'passwordに数字が含まれなければ登録できない' do
         @user.password = 'abcdef'
         @user.password_confirmation = @user.password
         @user.valid?
-        expect(@user.errors.full_messages).to include 'Password 英字と数字の両方を含めて設定してください'
+        expect(@user.errors.full_messages).to include 'Password is invalid'
+      end
+      it "passwordに全角文字が含まれていれば登録できない" do
+        @user.password = '１２３４５６'
+        @user.password_confirmation = @user.password
+        @user.valid?
+        expect(@user.errors.full_messages).to include 'Password is invalid'
       end
       it 'passwordとpassword_confirmationが一致しなければ登録できない' do
         @user.password_confirmation = ''
@@ -108,6 +114,12 @@ RSpec.describe User, type: :model do
         @user.first_name_kana = 'なまえ'
         @user.valid?
         expect(@user.errors.full_messages).to include 'First name kana 全角カタカナを使用してください'
+      end
+
+      it 'birthdayがなければ登録できない' do
+        @user.birthday = nil
+        @user.valid?
+        expect(@user.errors.full_messages).to include "Birthday can't be blank"
       end
     end
   end
