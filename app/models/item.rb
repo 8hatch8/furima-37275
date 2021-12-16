@@ -4,7 +4,7 @@ class Item < ApplicationRecord
   belongs_to :condition
   belongs_to :postage_payer
   belongs_to :prefecture
-  belongs_to :Preparation_days
+  belongs_to :preparation_days
 
   belongs_to :user
   has_one_attached :image
