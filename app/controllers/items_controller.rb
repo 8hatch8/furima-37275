@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :move_to_sign_in, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create]
 
   def index
   end
