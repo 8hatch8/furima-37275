@@ -8,4 +8,24 @@ class Item < ApplicationRecord
 
   belongs_to :user
   has_one_attached :image
+
+  validates :name,                presence: true
+  validates :text,                presence: true
+  validates :price,               numericality: { greater_than: 300 },
+                                  numericality: { less_than: 9999999 }
+  validates :category_id,         numericality: { other_than: 0 }
+  validates :condition_id,        numericality: { other_than: 0 }
+  validates :postage_payer_id,    numericality: { other_than: 0 }
+  validates :prefecture_id,       numericality: { other_than: 0 }
+  validates :preparation_days_id, numericality: { other_than: 0 }
+  validate  :image_attached
+  
+  private
+
+  def image_attached
+    unless image.attached?
+      errors.add(:image, "can't be blank")
+    end
+  end
+
 end
