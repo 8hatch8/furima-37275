@@ -98,7 +98,8 @@
             <span class="indispensable">必須</span>
           </div>
           <span class="sell-yen">¥</span>
-          <%= f.text_field :price, class:"price-input", id:"item-price", placeholder:"例）300" %>
+          <%= f.text_field :price, class:"price-input", id:"item-price",
+            placeholder:"例）300", maxlength:"7", size: "15" %>
         </div>
         <div class="price-content">
           <span>販売手数料 (10%)</span>
@@ -156,3 +157,5 @@
     </p>
   </footer>
 </div>
+
+<%= javascript_pack_tag 'items/new' %>
