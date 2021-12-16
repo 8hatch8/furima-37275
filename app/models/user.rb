@@ -2,6 +2,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :items
+
   validates :nickname, :family_name, :first_name, :family_name_kana,
             :first_name_kana, :birthday, presence: true
   # パスワードは半角英数字混合必須・半角のみ
