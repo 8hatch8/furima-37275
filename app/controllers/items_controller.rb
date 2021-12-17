@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit]
+  before_action :editable_item!, only: [:edit, :update]
 
   def index
     @items = Item.order('created_at DESC')
@@ -22,6 +23,17 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def edit
+  end
+
+  def update
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+    else
+      render :edit
+    end
+  end
+
   private
 
   def item_params
@@ -30,5 +42,10 @@ class ItemsController < ApplicationController
       :postage_payer_id, :prefecture_id, :preparation_days_id,
       :image
     ).merge(user_id: current_user.id)
+  end
+
+  def editable_item!
+    @item = Item.find(params[:id])
+    redirect_to root_path unless current_user == @item.user # && @item.contract = nil
   end
 end
