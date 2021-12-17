@@ -30,7 +30,7 @@
     <% if @item.user == current_user %> 
       <%= link_to "商品の編集", edit_item_path(@item), method: :get, class: "item-red-btn" %>
       <p class="or-text">or</p>
-      <%= link_to "削除", "#", method: :delete, class:"item-destroy" %>
+      <%= link_to "削除", item_path(@item), method: :delete, class:"item-destroy" %>
     <% end %>
     <%# 本人以外でログインかつ売却前　※売却前の条件は後日実装 %>
     <% if @item.user != current_user && user_signed_in? %>
