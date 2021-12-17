@@ -46,9 +46,6 @@ class ItemsController < ApplicationController
 
   def editable_item!
     @item = Item.find(params[:id])
-    unless current_user == @item.user # && @item.contract = nil 
-      redirect_to root_path
-    end
+    redirect_to root_path unless current_user == @item.user # && @item.contract = nil
   end
-
 end
