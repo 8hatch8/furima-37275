@@ -34,7 +34,7 @@
     <% end %>
     <%# 本人以外でログインかつ売却前　※売却前の条件は後日実装 %>
     <% if @item.user != current_user && user_signed_in? %>
-      <%= link_to "購入画面に進む", item_contracts_path(@item) ,class:"item-red-btn"%>
+      <%= link_to "購入画面に進む", new_item_contract_path(@item) ,class:"item-red-btn"%>
     <% end %>
 
     <div class="item-explain-box">
