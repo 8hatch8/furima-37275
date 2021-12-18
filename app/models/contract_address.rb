@@ -1,6 +1,6 @@
 class ContractAddress
   include ActiveModel::Model
-  attr_accessor :item_id, :user_id, :postal_code, :prefecture_id, :municipality, :address, :building, :tel
+  attr_accessor :item_id, :user_id, :postal_code, :prefecture_id, :municipality, :address, :building, :tel, :token
 
   with_options presence: true do
     validates :item_id
@@ -9,6 +9,7 @@ class ContractAddress
     validates :municipality
     validates :address
     validates :tel, format: {with: /\A[0-9]{10,11}\z/, message: 'is invalid.'}
+    validates :token
   end
   validates :prefecture_id, numericality: {other_than: 0, message: "can't be blank"}
 
