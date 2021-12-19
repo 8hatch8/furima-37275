@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  # before_action :basic_auth 一時停止
+  before_action :basic_auth 一時停止
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   private
