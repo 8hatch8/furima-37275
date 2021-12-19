@@ -3,7 +3,6 @@ class ContractsController < ApplicationController
   before_action :available_item!, only: [:new, :create]
 
   def new
-    @item = Item.find(params[:item_id])
     @contract_address = ContractAddress.new
   end
 
@@ -14,7 +13,6 @@ class ContractsController < ApplicationController
       @contract_address.save
       redirect_to root_path
     else
-      @item = Item.find(params[:item_id])
       render :new
     end
   end
