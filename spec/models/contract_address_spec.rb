@@ -1,11 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe ContractAddress, type: :model do
-  before do
-    @contract_address = FactoryBot.build(:contract_address)
-  end
-
   describe '商品購入機能' do
+    before do
+      item  = FactoryBot.build(:item) #attach image after build
+      item.save
+      buyer = FactoryBot.create(:user)
+      @contract_address = FactoryBot.build(:contract_address, item_id: item.id, user_id: buyer.id)
+      sleep(0.1) # 読み込み時のmysqlエラー回避のため
+    end
+
     context '購入できる場合' do
       it "postal_code, prefecture_id, municipality, address, building,
        :tel, :item_id, user_id, tokenがあれば購入できる" do
@@ -27,8 +31,8 @@ RSpec.describe ContractAddress, type: :model do
         @contract_address.valid?
         expect(@contract_address.errors.full_messages).to include "Postal code can't be blank"
       end
-      it 'postal_code が全角数字では購入できない' do
-        @contract_address.postal_code = '１２３-４５６７'
+      it 'postal_code が全角では購入できない' do
+        @contract_address.postal_code = "a"
         @contract_address.valid?
         expect(@contract_address.errors.full_messages).to include 'Postal code is invalid. Include hyphen(-)'
       end
@@ -38,8 +42,8 @@ RSpec.describe ContractAddress, type: :model do
         expect(@contract_address.errors.full_messages).to include 'Postal code is invalid. Include hyphen(-)'
       end
 
-      it 'prefecture_id がなければ購入できない' do
-        @contract_address.prefecture_id = nil
+      it 'prefecture_id が０ならば購入できない' do
+        @contract_address.prefecture_id = 0
         @contract_address.valid?
         expect(@contract_address.errors.full_messages).to include "Prefecture can't be blank"
       end

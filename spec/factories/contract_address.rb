@@ -6,8 +6,6 @@ FactoryBot.define do
     municipality    { Gimei.address.city.kanji }
     address         { Gimei.address.town.kanji }
     building        { Faker::Address.building_number }
-    item_id         { 100 }
-    user_id         { 100 }
     token           { 'tok_abcdefghijk00000000000000000' }
   end
 end
