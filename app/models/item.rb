@@ -23,7 +23,7 @@ class Item < ApplicationRecord
   validates :postage_payer_id,    numericality: { other_than: 0 }
   validates :prefecture_id,       numericality: { other_than: 0 }
   validates :preparation_days_id, numericality: { other_than: 0 }
-  
+
   validate  :image_attached
 
   private
