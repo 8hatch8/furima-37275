@@ -7,6 +7,8 @@ class Item < ApplicationRecord
   belongs_to :preparation_days
 
   belongs_to :user
+  has_one    :contract
+
   has_one_attached :image
 
   validates :name,                presence: true
@@ -21,6 +23,7 @@ class Item < ApplicationRecord
   validates :postage_payer_id,    numericality: { other_than: 0 }
   validates :prefecture_id,       numericality: { other_than: 0 }
   validates :preparation_days_id, numericality: { other_than: 0 }
+
   validate  :image_attached
 
   private
