@@ -5,7 +5,7 @@
   </header>
   <div class="items-sell-main">
 
-    <%= render partial: "item_form", locals: { item: @item, submit_value: "出品する" } %>
+    <%= render partial: "item_form", locals: { item: @item, submit_value: "出品する", back_path: root_path} %>
 
   <footer class="items-sell-footer">
     <ul class="menu">
